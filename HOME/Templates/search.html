@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Search Item....</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <center>
+            <br><br/>
+
+            <form method="POST" action="{% url 'item-search' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="item-name..." name="searched">
+                </div>
+            </form>
+
+        </center>
+    </div>
+    <br><br/>
+
+    {% if searched is not None %}
+    {% if searched %}
+    <div class="container">
+        <div class="row justify-content-center"> <!-- Ensures cards are centered properly -->
+            {% for product in searched %}
+            <div class="col-md-3 col-sm-6 mb-3"> <!-- Smaller col size to fit more items in a row -->
+                <div class="card text-center shadow-sm" style="border-radius: 10px;">
+                    {% if product.is_sale %}
+                    <div class="badge bg-white text-danger position-absolute" style="top:10px; right:10px;">SALE!</div>
+                    {% endif %}
+                    <img class="card-img-top p-2 mx-auto" src="{{ product.image.url }}"
+                         alt="{{ product.name }}" style="max-height: 150px; width: auto; object-fit: contain;">
+                    <div class="card-body p-2">
+                        <h6 class="fw-bolder">{{ product.name }}</h6>
+                        <p class="mb-1">
+                            {% if product.is_sale %}
+                            <strike class="text-muted">₹{{ product.price }}</strike> <span class="text-danger">₹{{ product.sale_price }}</span>
+                            {% else %}
+                            ₹{{ product.price }}
+                            {% endif %}
+                        </p>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'product' product.id %}">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% else %}
+    <div class="text-center">
+        <h3>No products found.</h3>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <br><br/>
+{% endblock %}
+</header>

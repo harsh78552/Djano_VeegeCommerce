@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-r+t@kl)9ofvptcc1xwxe)x*dsm$(!)-5xcwy1a1uayf$jrq%wr
 DEBUG = True
 
 ALLOWED_HOSTS = ['tclip-production-5c82.up.railway.app', 'https://tclip-production-5c82.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['tclip-production-5c82.up.railway.app', 'https://tclip-production-5c82.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://tclip-production-5c82.up.railway.app']
 # Replace 'HOME' with your actual app name
 
 
